@@ -44,7 +44,7 @@ spec:
             - name: BOKEH_ALLOW_WS_ORIGIN
               value: {{ template "visualizations.allowedOrigins" $ }}
             - name: REPOSITORY_PATH
-              value: {{ template "visualizations.repositoryPath" $ }}
+              value: {{ $.Values.repositoryPath }}
             - name: DOWNLOAD
               value: "true"
       {{- with $.Values.nodeSelector }}
