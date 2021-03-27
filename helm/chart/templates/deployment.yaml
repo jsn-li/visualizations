@@ -1,0 +1,58 @@
+{{- range $region := .Values.regions }}
+{{- $selectorData := dict "dot" $ "region" $region -}}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "visualizations.fullname" $ }}-{{ $region }}
+  labels:
+    {{- include "visualizations.labels" $ | nindent 4 }}
+    {{- include "visualizations.selectorLabels" $selectorData | nindent 4 }}
+spec:
+  replicas: {{ $.Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "visualizations.selectorLabels" $selectorData | nindent 6 }}
+  template:
+    metadata:
+      {{- with $.Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "visualizations.selectorLabels" $selectorData | nindent 8 }}
+    spec:
+      {{- with $.Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml $.Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ $.Chart.Name }}
+          securityContext:
+            {{- toYaml $.Values.securityContext | nindent 12 }}
+          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 5006
+              protocol: TCP
+          env:
+            - name: REGION
+              value: {{ $region | quote }}
+            - name: BOKEH_ALLOW_WS_ORIGIN
+              value: {{ template "visualizations.allowedOrigins" $ }}
+      {{- with $.Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $.Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $.Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{ end }}

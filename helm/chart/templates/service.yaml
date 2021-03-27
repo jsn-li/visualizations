@@ -1,0 +1,20 @@
+{{- range $region := .Values.regions }}
+{{- $selectorData := dict "dot" $ "region" $region -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "visualizations.fullname" $ }}-{{ $region }}
+  labels:
+    {{- include "visualizations.labels" $ | nindent 4 }}
+    {{- include "visualizations.selectorLabels" $selectorData | nindent 4 }}
+spec:
+  type: {{ $.Values.service.type }}
+  ports:
+    - name: http
+      port: {{ $.Values.service.port }}
+      targetPort: http
+      protocol: TCP
+  selector:
+    {{- include "visualizations.selectorLabels" $selectorData | nindent 4 }}
+{{ end }}

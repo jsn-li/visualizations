@@ -1,0 +1,46 @@
+{% extends base %}
+
+<!-- goes in head -->
+{% block preamble %}
+<!-- Stylesheet -->
+<link rel="stylesheet" href="./visualizations/static/styles.css">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G3199FDHZ3"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-G3199FDHZ3');
+</script>
+{% endblock %}
+
+<!-- goes in body -->
+{% block contents %}
+<div class="visualization">
+    <div class="title-wrapper">
+        <h3>{{ title }}</h3>
+        {% if last_updated_time != None %}
+        <p>{{ last_updated_text }}: {{ last_updated_time }}</p>
+        {% endif %}
+    </div>
+    <div class="legend-wrapper">
+        <p>
+            <b>{{ legend_title }}</b>
+        </p>
+        {% for desc in descriptions %}
+        {% if desc != None %}
+        <div class="legend-item">
+            <div class="color-box" style="background-color: {{ colors[loop.index - 1] }};"></div>
+            <p><b>{{ labels[loop.index - 1] }}</b>: {{ desc }}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div class="inputs-wrapper">
+        {{ embed(roots.inputs) }}
+    </div>
+    <div class="plot-wrapper"> {{ embed(roots.plot) }} </div>
+</div>
+{% endblock %}

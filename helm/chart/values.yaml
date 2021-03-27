@@ -1,0 +1,74 @@
+# Default values for visualizations.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: vis-docker-registry:5000/visualizations
+  pullPolicy: Always
+  tag: "latest"
+
+imagePullSecrets:
+  - name: regcred
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+   fsGroup: 2000
+
+securityContext:
+   capabilities:
+     drop:
+     - ALL
+   readOnlyRootFilesystem: true
+   runAsNonRoot: true
+   runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 5006
+
+ingress:
+  enabled: true
+  annotations:
+     kubernetes.io/ingress.class: nginx
+  hosts:
+    - host: nocovid.group
+      paths: []
+  tls: []
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# This is the URL of the git repo folder that contains the config, pickles, and last-updated folders.
+# It should be a raw path with which the file can be directly downloaded. If installing through the
+# Concourse pipeline, this value will be overridden.
+# Example:
+# repositoryPath: https://raw.githubusercontent.com/vbrunsch/rankings/main/visualizations
+repositoryPath:
+
+# This is the list of regions that will be deployed. The values should correspond directly to the names
+# of the visualization configuration YAML files.
+# Example:
+# regions:
+#   - germany
+#   - saxony
+regions: []
+
+# This is the list of origins that will be allowed to connect to the visualization server. Any domains used
+# to view the visualizations should be listed here, otherwise the requests will be blocked.
+# Example:
+# allowedOrigins:
+#   - localhost
+#   - nocovid.group
+#   - ec19.org
+#   - endcoronavirus.org
+allowedOrigins: []

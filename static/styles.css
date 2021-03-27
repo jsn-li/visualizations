@@ -1,0 +1,57 @@
+/* font stuff */
+html {
+    font-family: Helvetica, sans-serif;
+    font-size: 18px;
+}
+
+.title-wrapper, .legend-wrapper {
+    color: #444444;
+}
+
+.bk-tooltip {
+    font-size: 1rem !important;
+}
+
+.inputs-wrapper * {
+    font-size: 1rem !important;
+}
+
+/* sizing/spacing */
+.inputs-wrapper {
+    position: relative;
+    z-index: 10;
+}
+
+.title-wrapper {
+    padding-left: 5px;
+}
+
+.color-box {
+    height: 1rem;
+    width: 1rem;
+    border: 1px #e5e5e5 solid;
+    display: inline;
+    float: left;
+    margin-right: 5px;
+}
+
+.visualization {
+    padding: 10px;
+    max-width: 700px;
+    min-width: 550px;
+    position: relative;
+    margin: auto;
+}
+
+.legend-wrapper {
+    border: 1px #e5e5e5 solid;
+    margin: 5px;
+    padding: 15px 50px;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.inputs-wrapper .bk-btn, .bk-input {
+    min-height: 2.2rem !important;
+}

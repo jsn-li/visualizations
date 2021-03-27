@@ -1,0 +1,6 @@
+Your visualizations are deployed and can be reached at the following URLs:
+{{- range $host := .Values.ingress.hosts }}
+  {{- range $region := $.Values.regions }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}/{{ $region }}
+  {{- end }}
+{{- end }}
