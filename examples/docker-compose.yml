@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  sample-visualization:
+    image: registry.nocovid.group/visualizations:latest
+    restart: on-failure
+    environment:
+      - REGION=sample
+      - BOKEH_ALLOW_WS_ORIGIN=localhost,${SERVER_HOST},${GLOBAL_WHITELIST}
+      - REPOSITORY_PATH=${REPOSITORY_PATH}
+      - DOWNLOAD=${DOWNLOAD}
+      - BOKEH_SSL_CERTFILE=${SSL_CERTFILE}
+      - BOKEH_SSL_KEYFILE=${SSL_KEYFILE}
+    volumes:
+      - ./visualizations:/visualizations/data
+    ports:
+      - ${SAMPLE_PORT}:5006

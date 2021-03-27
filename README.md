@@ -1,1 +1,81 @@
-# visualizations
+# Green-zone Visualizations
+* Pipeline is available for monitoring at https://concourse.nocovid.group
+* Visualizations are served at https://nocovid.group/{region}
+### Usage
+1. Create a `visualizations` folder with the following file structure. 
+   See the [example](https://github.com/aochen-jli/visualizations/examples/) for reference.
+   ```
+   .
+   ├── ...
+   ├── visualizations
+   │   ├── values.yaml         # Values for Helm deployment
+   │   ├── config              # Per-region configuration files
+   │   │   ├── region.yml
+   │   │   └── ...
+   │   ├── last-updated        # Per-region last-updated timestamp files
+   │   │   ├── region
+   │   │   └── ...
+   │   └── pickles             # Per-region pickle files
+   │       ├── region.pkl
+   │       └── ...
+   └── ...
+   ```
+2. Modify your regions' ranking.py files to generate .pkl and last-updated files
+   * Pickle File
+      * Required columns are region name, category, time safe, and primary incidence (e.g. cases in 7 days)
+      * Optional columns are postcode, secondary incidence (e.g. cases per 100k in 14 days), and percent 
+        change (use if primary and secondary incidence are of the same unit and measured over different periods of time)
+      * The .pkl file should be saved to `visualizations/pickles/{region}.yml`
+   * Last Updated File
+       * Each time a new .pkl file is created, save the date and time to `visualizations/last-updated/{region}`
+       * Any format and time zone can be used
+2. Create a configuration .yml file for each region in the `visualizations/config` folder
+    * Documentation of all configuration options is available in [visualizations/layout.py](https://github.com/aochen-jli/visualizations/blob/052275a5457cc6ed38e08e7d411061127af55dcc/layout.py#L55)
+        * Make sure the required configuration options are set!
+    * For examples, refer to [sample.yml](https://github.com/aochen-jli/visualizations/examples/visualizations/config/sample.yml) or 
+      the config files [here](https://github.com/vbrunsch/rankings/visualizations/config)
+    * The file extension must be .yml, not .yaml
+3. Copy the example [values.yaml](https://github.com/aochen-jli/visualizations/examples/visualizations/config/sample.yml) into your visualizations folder and configure it
+    1. Add your configured regions to the `regions` section
+    2. Add the domains that the visualizations will be served/embedded on to the `allowedOrigins` section 
+5. If you do not have a build and deployment pipeline configured for your repository, you can create 
+   one [here](https://github.com/aochen-jli/visualizations-cicd/tree/main/pipelines) and submit a pull 
+   request. Or, you can ask Jason to create one.
+### Modifying or translating regions
+* To modify a region's visualization, you just need to modify the region's config file (or the .pkl generation) and changes will automatically be applied
+* To translate a region, use the [title and string configuration options](https://github.com/aochen-jli/visualizations/blob/052275a5457cc6ed38e08e7d411061127af55dcc/layout.py#L108). 
+  Consult the config files [here](https://github.com/vbrunsch/rankings/visualizations/config) for reference.
+### Local Testing
+1. Install Docker and Docker Compose.
+2. Copy the [example docker-compose.yml and .env files](https://github.com/aochen-jli/visualizations/examples/) in the into the directory that contains your `visualizations` folder
+3. Configure `docker-compose.yml`, replacing all references to `sample` with your region, e.g. `germany`
+   * You can copy and paste the `sample-visualization` template to test multiple regions simultaneously
+4. Add an environment variable for your region's port in the .env with an unused port, e.g. `AUSTRALIA_PORT=5008`
+5. If you need to test changes to this repository or have issues pulling the image,
+   clone this repository and run `docker build . -t registry.nocovid.group/visualizations:latest` in the root folder.
+6. Run `docker-compose up --build` in the root folder of the repository, and once the server is up, 
+   go to `http://localhost:((port))/((region))`, replacing ((port)) with the port you used in step 4 and ((region)) with the region name.
+7. Every time you want to reload your changes, stop the previous containers and re-run `docker-compose up --build`
+### Embedding
+* If you are using the default sizing and font configuration, this HTML and CSS is a good starting point to embed the visualizations.
+```html
+<iframe class="vis-embed" src="https://nocovid.group/saxony/visualizations"></iframe>
+<style>
+.vis-embed {
+    display: block;
+    width: 600px;
+    height: 1200px;
+    margin: auto;
+}
+@media (min-width: 768px) { 
+    .vis-embed {
+        width: 700px;
+        height: 1300px;
+    }
+}
+</style>
+```
+### Kubernetes Deployment
+* All deployments should be handled by the CI/CD pipeline. To set up pipelines or infrastructure, see [here](https://github.com/aochen-jli/rankings-cicd).
+### Example
+![visualization example](https://raw.githubusercontent.com/aochen-jli/visualizations/main/examples/visualization_img.png)

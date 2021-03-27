@@ -1,0 +1,10 @@
+# This is the list of regions that will be deployed. The values should correspond directly to the names
+# of the visualization configuration YAML files.
+regions:
+  - sample
+
+# This is the list of origins that will be allowed to connect to the visualization server. Any domains used
+# to view the visualizations should be listed here, otherwise the requests will be blocked.
+allowedOrigins:
+  - localhost
+  - nocovid.group
