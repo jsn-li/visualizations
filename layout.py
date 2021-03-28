@@ -61,7 +61,8 @@ class VisualizationLayout:
 
     --- Required Configuration ---
     :param title is the title of the visualization
-    :param pickle_file is where the .pkl file is located
+    :param pickle_file is where the .pkl file is located (this is automatically set by the pipeline, and does not need
+           to be set unless running the visualization manually)
     :param labels are the phases' labels. the first element is always the "Green Zone" and is sorted in descending order
            with elements in time_safe_key.
     :param descriptions are used to display the legend
