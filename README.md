@@ -1,4 +1,5 @@
 # Green-zone Visualizations
+This application integrates with Endcoronavirus.org's Green-zone rankings calculations, which can be seen [here](https://github.com/vbrunsch/rankings), and generates a visualization of any region's progress in eliminating COVID-19.
 * Pipeline is available for monitoring at https://concourse.nocovid.group
 * Visualizations are served at https://nocovid.group/{region}
 ### Usage
@@ -32,6 +33,7 @@
 2. Create a configuration .yml file for each region in the `visualizations/config` folder
     * Documentation of all configuration options is available in [visualizations/layout.py](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L55)
         * Make sure the required configuration options are set!
+    * Default values for non-required options can be seen at the [top of the file](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L15)
     * For examples, refer to [sample.yml](https://github.com/aochen-jli/visualizations/blob/main/examples/visualizations/config/sample.yml) or 
       the config files [here](https://github.com/vbrunsch/rankings/tree/main/visualizations/config)
     * The file extension must be .yml, not .yaml
