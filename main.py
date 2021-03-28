@@ -12,7 +12,7 @@ from layout import VisualizationLayout
 def process_filepath(path):
     # If the filepath is a URL, download it and return its path. Otherwise, just return the input path.
     if os.getenv('DOWNLOAD', 'false').lower() == 'true':
-        file = tempfile.NamedTemporaryFile(delete=False)
+        file = tempfile.NamedTemporaryFile(dir="./", delete=False)
         logconfig.log.info(f"Downloading file at {path}")
         download = requests.get(path)
         logconfig.log.info(f"Download completed, status code: {download.status_code}")
