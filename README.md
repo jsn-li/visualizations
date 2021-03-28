@@ -3,7 +3,7 @@
 * Visualizations are served at https://nocovid.group/{region}
 ### Usage
 1. Create a `visualizations` folder with the following file structure. 
-   See the [example](https://github.com/aochen-jli/visualizations/examples/) for reference.
+   See the [example](https://github.com/aochen-jli/visualizations/tree/main/examples/) for reference.
    ```
    .
    ├── ...
@@ -30,12 +30,12 @@
        * Each time a new .pkl file is created, save the date and time to `visualizations/last-updated/{region}`
        * Any format and time zone can be used
 2. Create a configuration .yml file for each region in the `visualizations/config` folder
-    * Documentation of all configuration options is available in [visualizations/layout.py](https://github.com/aochen-jli/visualizations/blob/052275a5457cc6ed38e08e7d411061127af55dcc/layout.py#L55)
+    * Documentation of all configuration options is available in [visualizations/layout.py](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L55)
         * Make sure the required configuration options are set!
-    * For examples, refer to [sample.yml](https://github.com/aochen-jli/visualizations/examples/visualizations/config/sample.yml) or 
-      the config files [here](https://github.com/vbrunsch/rankings/visualizations/config)
+    * For examples, refer to [sample.yml](https://github.com/aochen-jli/visualizations/blob/main/examples/visualizations/config/sample.yml) or 
+      the config files [here](https://github.com/vbrunsch/rankings/tree/main/visualizations/config)
     * The file extension must be .yml, not .yaml
-3. Copy the example [values.yaml](https://github.com/aochen-jli/visualizations/examples/visualizations/config/sample.yml) into your visualizations folder and configure it
+3. Copy the example [values.yaml](https://github.com/aochen-jli/visualizations/blob/main/examples/visualizations/values.yaml) into your visualizations folder and configure it
     1. Add your configured regions to the `regions` section
     2. Add the domains that the visualizations will be served/embedded on to the `allowedOrigins` section 
 5. If you do not have a build and deployment pipeline configured for your repository, you can create 
@@ -43,11 +43,11 @@
    request. Or, you can ask Jason to create one.
 ### Modifying or translating regions
 * To modify a region's visualization, you just need to modify the region's config file (or the .pkl generation) and changes will automatically be applied
-* To translate a region, use the [title and string configuration options](https://github.com/aochen-jli/visualizations/blob/052275a5457cc6ed38e08e7d411061127af55dcc/layout.py#L108). 
-  Consult the config files [here](https://github.com/vbrunsch/rankings/visualizations/config) for reference.
+* To translate a region, use the [title and string configuration options](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L108). 
+  Consult the config files [here](https://github.com/vbrunsch/rankings/tree/main/visualizations/config) for reference.
 ### Local Testing
 1. Install Docker and Docker Compose.
-2. Copy the [example docker-compose.yml and .env files](https://github.com/aochen-jli/visualizations/examples/) in the into the directory that contains your `visualizations` folder
+2. Copy the [example docker-compose.yml and .env files](https://github.com/aochen-jli/visualizations/tree/main/examples/) in the into the directory that contains your `visualizations` folder
 3. Configure `docker-compose.yml`, replacing all references to `sample` with your region, e.g. `germany`
    * You can copy and paste the `sample-visualization` template to test multiple regions simultaneously
 4. Add an environment variable for your region's port in the .env with an unused port, e.g. `AUSTRALIA_PORT=5008`
