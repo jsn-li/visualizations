@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: vis-docker-registry:5000/visualizations
+  repository: registry.nocovid.group/visualizations
   pullPolicy: Always
   tag: "latest"
 
