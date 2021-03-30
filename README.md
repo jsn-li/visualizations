@@ -91,8 +91,7 @@ a proper URL structure!
 3. Configure `docker-compose.yml`, replacing all references to `sample` with your region, e.g. `germany`
    * You can copy and paste the `sample-visualization` template to test multiple regions simultaneously
 4. Add an environment variable for your region's port in the .env with an unused port, e.g. `AUSTRALIA_PORT=5008`
-5. If you need to test changes to this repository or have issues pulling the image,
-   clone this repository and run `docker build . -t registry.nocovid.group/visualizations:latest` in the root folder.
+5. Clone this repository and run `docker build . -t registry.nocovid.group/visualizations:latest` in the root folder.
 6. Run `docker-compose up --build` in the root folder of the repository, and once the server is up, 
    go to `http://localhost:((port))/((region))`, replacing ((port)) with the port you used in step 4 and ((region)) with the region name.
 7. Every time you want to reload your changes, stop the previous containers and re-run `docker-compose up --build`
