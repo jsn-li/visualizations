@@ -52,6 +52,7 @@ app.kubernetes.io/instance: {{ .dot.Release.Name }}-{{ .region }}
 {{- else }}
 app.kubernetes.io/instance: {{ .dot.Release.Name }}
 {{- end }}
+visualizations/release: {{ .dot.Release.Name }}
 {{- end }}
 
 {{/*
