@@ -11,38 +11,76 @@ This application integrates with Endcoronavirus.org's Green-zone rankings calcul
    ├── visualizations
    │   ├── values.yaml         # Values for Helm deployment
    │   ├── config              # Per-region configuration files
+   │   │   ├── region
+   │   │   │   └── subregion.yml
    │   │   ├── region.yml
    │   │   └── ...
    │   ├── last-updated        # Per-region last-updated timestamp files
    │   │   ├── region
+   │   │   │   └── subregion.log
+   │   │   ├── region.log
    │   │   └── ...
    │   └── pickles             # Per-region pickle files
+   │   │   ├── region
+   │   │   │   └── subregion.pkl
    │       ├── region.pkl
    │       └── ...
    └── ...
    ```
 2. Modify your regions' ranking.py files to generate .pkl and last-updated files
-   * Pickle File
+    * Pickle File
       * Required columns are region name, category, time safe, and primary incidence (e.g. cases in 7 days)
       * Optional columns are postcode, secondary incidence (e.g. cases per 100k in 14 days), and percent 
         change (use if primary and secondary incidence are of the same unit and measured over different periods of time)
       * The .pkl file should be saved to `visualizations/pickles/{region}.yml`
-   * Last Updated File
-       * Each time a new .pkl file is created, save the date and time to `visualizations/last-updated/{region}`
+    * Last Updated File
+       * Each time a new .pkl file is created, save the date and time to `visualizations/last-updated/{region}.log`
        * Any format and time zone can be used
-2. Create a configuration .yml file for each region in the `visualizations/config` folder
-    * Documentation of all configuration options is available in [visualizations/layout.py](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L55)
-        * Make sure the required configuration options are set!
-    * Default values for non-required options can be seen at the [top of the file](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L15)
-    * For examples, refer to [sample.yml](https://github.com/aochen-jli/visualizations/blob/main/examples/visualizations/config/sample.yml) or 
-      the config files [here](https://github.com/vbrunsch/rankings/tree/main/visualizations/config)
-    * The file extension must be .yml, not .yaml
-3. Copy the example [values.yaml](https://github.com/aochen-jli/visualizations/blob/main/examples/visualizations/values.yaml) into your visualizations folder and configure it
-    1. Add your configured regions to the `regions` section
-    2. Add the domains that the visualizations will be served/embedded on to the `allowedOrigins` section 
+    ```python
+    # Save pickle and last updated time for visualizations
+    # Define filepaths
+    pickle_file = "visualizations/pickles/{region}.pkl"
+    last_updated_file = "visualizations/last-updated/{region}.log"
+    # Ensure directories
+    os.makedirs(os.path.dirname(pickle_file), exist_ok=True)
+    os.makedirs(os.path.dirname(last_updated_file), exist_ok=True)
+    # Write files
+    df.to_pickle(pickle_file)
+    with open(last_updated_file, 'w') as file:
+        file.write(datetime.utcnow().strftime("%m/%d/%Y %H:%M:%S UTC"))
+    ```
+3. Create a configuration .yml file for each region in the `visualizations/config` folder
+   * Documentation of all configuration options is available in [visualizations/layout.py](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L55)
+      * Make sure the required configuration options are set!
+   * Default values for non-required options can be seen at the [top of the file](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L15)
+   * For examples, refer to [sample.yml](https://github.com/aochen-jli/visualizations/blob/main/examples/visualizations/config/sample.yml) or 
+     the config files [here](https://github.com/vbrunsch/rankings/tree/main/visualizations/config)
+   * The file extension must be .yml, not .yaml
+4. Copy the example [values.yaml](https://github.com/aochen-jli/visualizations/blob/main/examples/visualizations/values.yaml) into your visualizations folder and configure it
+   1. Add your configured regions to the `regions` section
+      ```yaml
+      regions:
+      - germany
+      - germany/saxony
+      ```
+   2. Add the domains that the visualizations will be served/embedded on to the `allowedOrigins` section 
+      ```yaml
+      allowedOrigins:
+      - localhost
+      - nocovid.group
+      ```
 5. If you do not have a build and deployment pipeline configured for your repository, you can create 
    one [here](https://github.com/aochen-jli/visualizations-cicd/tree/main/pipelines) and submit a pull 
    request. Or, you can ask Jason to create one.
+---
+**NOTE: Subregions**
+
+As you can tell above, subregions are represented in a hierarchical fashion. Hence, when working with a
+subregion, be sure to always prepend it with its parent region(s). In other words, you cannot refer to it as `{subregion}`, 
+only as `{region}/{subregion}` (e.g. `germany/saxony` and not `saxony`). This needs to be done correctly for
+a proper URL structure!
+---
+
 ### Modifying or translating regions
 * To modify a region's visualization, you just need to modify the region's config file (or the .pkl generation) and changes will automatically be applied
 * To translate a region, use the [title and string configuration options](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L108). 

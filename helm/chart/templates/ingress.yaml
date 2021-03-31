@@ -1,14 +1,14 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "visualizations.fullname" . -}}
+{{- $instanceData := dict "dot" . -}}
+{{- $ingressName := include "visualizations.fullname" $instanceData -}}
 {{- $svcPort := .Values.service.port -}}
-{{- $selectorData := dict "dot" . -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ $ingressName }}
   labels:
     {{- include "visualizations.labels" . | nindent 4 }}
-    {{- include "visualizations.selectorLabels" $selectorData | nindent 4 }}
+    {{- include "visualizations.selectorLabels" $instanceData | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -34,7 +34,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: "{{ $fullName }}-{{ $region }}"
+                name: '{{ $ingressName }}-{{ include "visualizations.regionName" $region }}'
                 port:
                   number: {{ $svcPort }}
           {{- end }}

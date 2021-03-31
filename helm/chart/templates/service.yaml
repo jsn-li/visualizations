@@ -1,13 +1,13 @@
 {{- range $region := .Values.regions }}
-{{- $selectorData := dict "dot" $ "region" $region -}}
+{{- $instanceData := dict "dot" $ "region" $region -}}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "visualizations.fullname" $ }}-{{ $region }}
+  name: {{ include "visualizations.fullname" $instanceData }}
   labels:
     {{- include "visualizations.labels" $ | nindent 4 }}
-    {{- include "visualizations.selectorLabels" $selectorData | nindent 4 }}
+    {{- include "visualizations.selectorLabels" $instanceData | nindent 4 }}
 spec:
   type: {{ $.Values.service.type }}
   ports:
@@ -16,5 +16,5 @@ spec:
       targetPort: http
       protocol: TCP
   selector:
-    {{- include "visualizations.selectorLabels" $selectorData | nindent 4 }}
+    {{- include "visualizations.selectorLabels" $instanceData | nindent 4 }}
 {{ end }}
