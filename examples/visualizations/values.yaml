@@ -1,8 +1,11 @@
-# This is the list of regions that will be deployed. The values should correspond directly to the names
+# This is the list of regions that will be deployed. The 'name' value should be the full name of the region,
+# capitalized, with spaces and all. The 'path' value should correspond directly to the name
 # of the visualization configuration YAML files.
 regions:
-  - sample
-  - sample/subsample
+  - name: Sample
+    path: sample
+  - name: Subsample
+    path: sample/subsample
 
 # This is the list of origins that will be allowed to connect to the visualization server. Any domains used
 # to view the visualizations should be listed here, otherwise the requests will be blocked.

@@ -1,5 +1,5 @@
 {{- range $region := .Values.regions }}
-{{- $instanceData := dict "dot" $ "region" $region -}}
+{{- $instanceData := dict "dot" $ "regionPath" $region.path -}}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -40,7 +40,7 @@ spec:
               protocol: TCP
           env:
             - name: REGION
-              value: {{ $region | quote }}
+              value: {{ $region.path | quote }}
             - name: BOKEH_ALLOW_WS_ORIGIN
               value: {{ template "visualizations.allowedOrigins" $ }}
             - name: REPOSITORY_PATH

@@ -54,12 +54,15 @@ affinity: {}
 # repositoryPath: https://raw.githubusercontent.com/vbrunsch/rankings/main/visualizations
 repositoryPath:
 
-# This is the list of regions that will be deployed. The values should correspond directly to the names
+# This is the list of regions that will be deployed. The 'name' value should be the full name of the region,
+# capitalized, with spaces and all. The 'path' value should correspond directly to the name
 # of the visualization configuration YAML files.
 # Example:
 # regions:
-#   - germany
-#   - saxony
+#   - name: Germany
+#     path: germany
+#   - name: Saxony
+#     path: germany/saxony
 regions: []
 
 # This is the list of origins that will be allowed to connect to the visualization server. Any domains used

@@ -8,20 +8,20 @@ Expand the name of the chart.
 {{/*
 Create a default fully qualified app name, accepts a dictionary
 containing the key "dot" (value: . passed in from the root level)
-and optionally, the key "region" (value: that deployment/service's region)
+and optionally, the key "regionPath" (value: that deployment/service's region path)
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
 {{- define "visualizations.fullname" -}}
-{{ $regionName := (include "visualizations.regionName" .region) }}
+{{ $safeRegionName := (include "visualizations.safeRegionName" .regionPath) }}
 {{- if .dot.Values.fullnameOverride }}
-{{- printf "%s-%s" .dot.Values.fullnameOverride $regionName | trunc 63 | trimSuffix "-" }}
+{{- printf "%s-%s" .dot.Values.fullnameOverride $safeRegionName | trunc 63 | trimSuffix "-" }}
 {{- else }}
 {{- $name := default .dot.Chart.Name .dot.Values.nameOverride }}
 {{- if contains $name .dot.Release.Name }}
-{{- printf "%s-%s" .dot.Release.Name $regionName | trunc 63 | trimSuffix "-" }}
+{{- printf "%s-%s" .dot.Release.Name $safeRegionName | trunc 63 | trimSuffix "-" }}
 {{- else }}
-{{- printf "%s-%s-%s" .dot.Release.Name $name $regionName | trunc 63 | trimSuffix "-" }}
+{{- printf "%s-%s-%s" .dot.Release.Name $name $safeRegionName | trunc 63 | trimSuffix "-" }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -46,21 +46,21 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 
 {{/*
 Selector labels, accepts a dictionary containing the key "dot" (value: . passed in from the root level)
-and optionally, the key "region" (value: that deployment/service's region)
+and optionally, the key "regionPath" (value: that deployment/service's region path)
 */}}
 {{- define "visualizations.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "visualizations.name" .dot }}
-{{- $regionName := (include "visualizations.regionName" .region) }}
-app.kubernetes.io/instance: {{ printf "%s-%s" .dot.Release.Name $regionName | trimSuffix "-" }}
+{{- $safeRegionName := (include "visualizations.safeRegionName" .regionPath) }}
+app.kubernetes.io/instance: {{ printf "%s-%s" .dot.Release.Name $safeRegionName | trimSuffix "-" }}
 visualizations/release: {{ .dot.Release.Name }}
 {{- end }}
 
 {{/*
-Returns region name, replacing slashes with hyphens. Expects the region name as input.
+Returns a region name that is safe to append to resource names and selectors. Expects the region path as input.
 */}}
-{{- define "visualizations.regionName" -}}
+{{- define "visualizations.safeRegionName" -}}
 {{- if . }}
-{{- . | replace "/" "-" -}}
+{{- . | replace "/" "-" | lower -}}
 {{- end }}
 {{- end }}
 

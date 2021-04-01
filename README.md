@@ -57,17 +57,19 @@ This application integrates with Endcoronavirus.org's Green-zone rankings calcul
      the config files [here](https://github.com/vbrunsch/rankings/tree/main/visualizations/config)
    * The file extension must be .yml, not .yaml
 4. Copy the example [values.yaml](https://github.com/aochen-jli/visualizations/blob/main/examples/visualizations/values.yaml) into your visualizations folder and configure it
-   1. Add your configured regions to the `regions` section
+   1. Add your configured regions to the `regions` section:
       ```yaml
       regions:
-      - germany
-      - germany/saxony
+      - name: Sample
+        path: sample
+      - name: Subsample
+        path: sample/subsample
       ```
-   2. Add the domains that the visualizations will be served/embedded on to the `allowedOrigins` section 
+   2. Add the domains that the visualizations will be served/embedded on to the `allowedOrigins` section: 
       ```yaml
       allowedOrigins:
       - localhost
-      - nocovid.group
+      - example.com
       ```
 5. If you do not have a build and deployment pipeline configured for your repository, you can create 
    one [here](https://github.com/aochen-jli/visualizations-cicd/tree/main/pipelines) and submit a pull 
@@ -76,9 +78,10 @@ This application integrates with Endcoronavirus.org's Green-zone rankings calcul
 **NOTE: Subregions**
 
 As you can tell above, subregions are represented in a hierarchical fashion. Hence, when working with a
-subregion, be sure to always prepend it with its parent region(s). In other words, you cannot refer to it as `{subregion}`, 
-only as `{region}/{subregion}` (e.g. `germany/saxony` and not `saxony`). This needs to be done correctly for
-a proper URL structure!
+subregion's path, be sure to always prepend it with its parent region(s). In other words, you cannot refer to it 
+as `{subregion}`, only as `{region}/{subregion}` (e.g. `germany/saxony` and not `saxony`). For example, the pickle file 
+for region `sample/subsample` should be saved to `visualizations/pickles/sample/subsample.pkl`. This needs to 
+be done correctly for a proper URL structure! 
 ---
 
 ### Modifying or translating regions

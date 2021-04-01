@@ -1,5 +1,5 @@
 {{- range $region := .Values.regions }}
-{{- $instanceData := dict "dot" $ "region" $region -}}
+{{- $instanceData := dict "dot" $ "regionPath" $region.path -}}
 ---
 apiVersion: v1
 kind: Service

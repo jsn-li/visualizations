@@ -30,11 +30,11 @@ spec:
       http:
         paths:
           {{- range $region := $.Values.regions }}
-          - path: "/{{ $region }}"
+          - path: "/{{ $region.path }}"
             pathType: Prefix
             backend:
               service:
-                name: '{{ $ingressName }}-{{ include "visualizations.regionName" $region }}'
+                name: '{{ $ingressName }}-{{ include "visualizations.safeRegionName" $region.path }}'
                 port:
                   number: {{ $svcPort }}
           {{- end }}
