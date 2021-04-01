@@ -1,9 +1,9 @@
-page_title: "Sample Visualizations"  # the HTML page title
+page_title: "Subsample Visualizations"  # the HTML page title
 horizontal_margin: 25  # the margins on the side of the graph
 between_margin: 25  # the margin in between visualizations (if you have multiple)
 visualizations:  # visualization config, please look in layout.py for other config options
   - case:  # the label for this visualization, only used for organization. it can be anything (e.g. incidence, foo, bar)
-      title: "Sample"  # the title that shows up above the actual graph
+      title: "Subsample"  # the title that shows up above the actual graph
       labels:
         - ~  # if you don't want the first category to be displayed & sorted by time safe, use a tilde in its place
         - "Grüne Zone"
