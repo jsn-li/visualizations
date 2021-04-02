@@ -1,6 +1,9 @@
-# This is the list of regions that will be deployed. The 'name' value should be the full name of the region,
-# capitalized, with spaces and all. The 'path' value should correspond directly to the name
-# of the visualization configuration YAML files.
+# This is the list of regions that will be deployed. The 'path' value is required and should correspond directly to
+# the name of the visualization configuration YAML files. If you wish to integrate your visualizations with the
+# home page, you need to add the 'name' and 'fake' values (default: false), as shown below. The 'name' value
+# allows you to set the exact display name for your region and the 'fake' value must be used to indicate when
+# a region does not have a visualization. This may occur, for example, if you have visualizations for some cities
+# and you represent them as subregions of a state, but you do not have a visualization for that state.
 regions:
   - name: Sample
     path: sample
