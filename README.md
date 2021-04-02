@@ -27,6 +27,13 @@ This application integrates with Endcoronavirus.org's Green-zone rankings calcul
    │       └── ...
    └── ...
    ```
+---
+**NOTE: Naming**
+
+Hyphens are allowed in region names! However, spaces and other special characters are not; please replace them 
+with underscores.
+
+---
 2. Modify your regions' ranking.py files to generate .pkl and last-updated files
     * Pickle File
       * Required columns are region name, category, time safe, and primary incidence (e.g. cases in 7 days)
@@ -57,13 +64,20 @@ This application integrates with Endcoronavirus.org's Green-zone rankings calcul
      the config files [here](https://github.com/vbrunsch/rankings/tree/main/visualizations/config)
    * The file extension must be .yml, not .yaml
 4. Copy the example [values.yaml](https://github.com/aochen-jli/visualizations/blob/main/examples/visualizations/values.yaml) into your visualizations folder and configure it
-   1. Add your configured regions to the `regions` section:
+   1. Add your configured regions to the `regions` section. The `path` value is required and should equal the 
+      `{region}` value referenced in the above sections. If you wish to integrate your visualizations with the 
+      [landing page](https://github.com/aochen-jli/visualizations-landing), you need to add the `name`
+      and optional `fake` value, as shown below. The `name` value allows you to set the exact display name for
+      your region and the `fake` value is used to indicate that a region does **not** have a visualization:
       ```yaml
       regions:
       - name: Sample
         path: sample
       - name: Subsample
         path: sample/subsample
+      - name: Region That Is Just For Display
+        path: sample/subsample/just_for_display
+        fake: true
       ```
    2. Add the domains that the visualizations will be served/embedded on to the `allowedOrigins` section: 
       ```yaml
