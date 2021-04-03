@@ -1,7 +1,7 @@
 FROM aochenjli/visualizations-base:4.9.2-alpine
 
-COPY ./ ./visualizations
 EXPOSE 5006
+COPY ./ ./visualizations
 
 CMD ["sh", "-c", "PYTHONPATH=\"${PYTHONPATH}:$(cd ../ && pwd)\" \
 PICKLE_FILE=${REPOSITORY_PATH}/pickles/${REGION}.pkl \
