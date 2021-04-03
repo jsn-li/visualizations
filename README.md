@@ -30,7 +30,7 @@ This application integrates with Endcoronavirus.org's Green-zone rankings calcul
 ---
 **NOTE: Naming**
 
-Hyphens are allowed in region names! However, spaces and other special characters are not; please replace them 
+Hyphens are allowed in region paths & filenames! However, spaces and other special characters are not; please replace them 
 with underscores.
 
 ---
@@ -65,9 +65,7 @@ with underscores.
    * The file extension must be .yml, not .yaml
 4. Copy the example [values.yaml](https://github.com/aochen-jli/visualizations/blob/main/examples/visualizations/values.yaml) into 
    your visualizations folder and configure it according to the documentation.
-5. If you do not have a build and deployment pipeline configured for your repository, you can create 
-   one [here](https://github.com/aochen-jli/visualizations-cicd/tree/main/pipelines) and submit a pull 
-   request. Or, you can ask Jason to create one.
+5. If the deployment pipeline is not yet configured to pull from your repository, you can implement it [here](https://github.com/aochen-jli/visualizations-cicd/tree/main/pipelines) and submit a pull request. Or, you can ask Jason to do it.
 ---
 **NOTE: Subregions**
 
@@ -76,8 +74,8 @@ subregion's path, be sure to always prepend it with its parent region(s). In oth
 as `{subregion}`, only as `{region}/{subregion}` (e.g. `germany/saxony` and not `saxony`). For example, the pickle file 
 for region `sample/subsample` should be saved to `visualizations/pickles/sample/subsample.pkl`. This needs to 
 be done correctly for a proper URL structure! 
----
 
+---
 ### Modifying or translating regions
 * To modify a region's visualization, you just need to modify the region's config file (or the .pkl generation) and changes will automatically be applied
 * To translate a region, use the [title and string configuration options](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L108). 
