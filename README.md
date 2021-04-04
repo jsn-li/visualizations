@@ -46,8 +46,10 @@ with underscores.
     ```python
     # Save pickle and last updated time for visualizations
     # Define filepaths
-    pickle_file = "visualizations/pickles/{region}.pkl"
-    last_updated_file = "visualizations/last-updated/{region}.log"
+    region_path = "germany/brandenburg/uckermark"
+    vis_path = "visualizations"
+    pickle_file = f"{vis_path}/pickles/{region_path}.pkl"
+    last_updated_file = f"{vis_path}/last-updated/{region_path}.log"
     # Ensure directories
     os.makedirs(os.path.dirname(pickle_file), exist_ok=True)
     os.makedirs(os.path.dirname(last_updated_file), exist_ok=True)
