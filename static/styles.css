@@ -1,7 +1,7 @@
 /* font stuff */
 html {
     font-family: Helvetica, sans-serif;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .title-wrapper, .legend-wrapper {
@@ -9,7 +9,7 @@ html {
 }
 
 .bk-tooltip {
-    font-size: 1rem !important;
+    font-size: 0.85rem !important;
 }
 
 .inputs-wrapper * {
@@ -37,8 +37,8 @@ html {
 
 .visualization {
     padding: 10px;
-    max-width: 700px;
-    min-width: 550px;
+    min-width: 395px;
+    max-width: 650px;
     position: relative;
     margin: auto;
 }
@@ -46,12 +46,24 @@ html {
 .legend-wrapper {
     border: 1px #e5e5e5 solid;
     margin: 5px;
-    padding: 15px 50px;
+    padding: 15px;
     white-space: nowrap;
     overflow-x: auto;
-    overflow-y: hidden;
+}
+
+.legend-wrapper p:after { /* needed for right padding when scrolling */
+    content: "";
+    display: inline-block;
+    height: 0;
+    width: 15px;
 }
 
 .inputs-wrapper .bk-btn, .bk-input {
     min-height: 2.2rem !important;
+}
+
+@media (min-width: 520px) {
+    .legend-wrapper {
+        padding: 15px 50px;
+    }
 }

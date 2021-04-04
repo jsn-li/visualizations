@@ -19,11 +19,11 @@ INPUTS_NAME = "inputs"
 DEFAULT_ASPECT_RATIO = 0.9
 DEFAULT_X_RANGE = (-4, 7)
 DEFAULT_Y_RANGE = (-0.075, 1.075)
-DEFAULT_MIN_SPACE_X = 0.0825
+DEFAULT_MIN_SPACE_X = 0.09
 DEFAULT_MIN_SPACE_Y = 0.06
 DEFAULT_TOTAL_DISPLAY_REGIONS = 12
 DEFAULT_MIN_DISPLAY_REGIONS = 2
-DEFAULT_FONT_SIZE = 20
+DEFAULT_FONT_SIZE = 16
 # keys
 DEFAULT_REGION_KEY = "District/County Town"
 DEFAULT_PRIMARY_INCIDENCE_KEY = "New Cases in Last 14 Days"
@@ -439,7 +439,8 @@ class VisualizationLayout:
             plot.vbar(0, 2, box_data["box_top_y"][i], fill_color=self.colors[i], line_color="#000000")
             plot.text(x=box_data["text_x"][i], y=box_data["text_y"][i],
                       text=box_data["text"][i],
-                      y_offset=(self.font_size * 1.9 if is_offset else self.font_size),
+                      y_offset=(self.font_size * 0.66 if is_offset else 0),
+                      text_baseline="middle",
                       text_align=("right" if is_offset else "center"),
                       text_font_size=self.font_size_str)
 
