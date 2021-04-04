@@ -1,9 +1,9 @@
 # Green-zone Visualizations
-This application integrates with Endcoronavirus.org's Green-zone rankings calculations, which can be seen [here](https://github.com/vbrunsch/rankings), and generates a visualization of any region's progress in eliminating COVID-19.
+This application integrates with Endcoronavirus.org's Green-zone rankings calculations, such as that in [this repository](https://github.com/vbrunsch/rankings), and generates a visualization of any region's progress in eliminating COVID-19.
 * Pipeline is available for monitoring at https://concourse.nocovid.group
 * Visualizations are served at https://nocovid.group/{region}
 ### Usage
-1. Create a `visualizations` folder with the following file structure. 
+1. In a rankings repository, create a `visualizations` folder with the following file structure. 
    See the [example](https://github.com/aochen-jli/visualizations/tree/main/examples/) for reference.
    ```
    .
@@ -83,15 +83,31 @@ be done correctly for a proper URL structure!
 * To translate a region, use the [title and string configuration options](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L108). 
   Consult the config files [here](https://github.com/vbrunsch/rankings/tree/main/visualizations/config) for reference.
 ### Local Testing
-1. Install Docker and Docker Compose.
+1. Install [Docker and Docker Compose](https://www.docker.com/products/docker-desktop).
 2. Copy the [example docker-compose.yml and .env files](https://github.com/aochen-jli/visualizations/tree/main/examples/) in the into the directory that contains your `visualizations` folder
 3. Configure `docker-compose.yml`, replacing all references to `sample` with your region, e.g. `germany`
    * You can copy and paste the `sample-visualization` template to test multiple regions simultaneously
+   ```yaml
+     sample-visualization:
+       image: registry.nocovid.group/visualizations:latest
+       restart: on-failure
+       environment:
+         - REGION=sample
+         - BOKEH_ALLOW_WS_ORIGIN=localhost,${SERVER_HOST},${GLOBAL_WHITELIST}
+         - REPOSITORY_PATH=${REPOSITORY_PATH}
+         - DOWNLOAD=${DOWNLOAD}
+         - BOKEH_SSL_CERTFILE=${SSL_CERTFILE}
+         - BOKEH_SSL_KEYFILE=${SSL_KEYFILE}
+       volumes:
+         - ./visualizations:/visualizations/data
+       ports:
+         - ${SAMPLE_PORT}:5006
+   ```
 4. Add an environment variable for your region's port in the .env with an unused port, e.g. `AUSTRALIA_PORT=5008`
 5. Clone this repository and run `docker build . -t registry.nocovid.group/visualizations:latest` in the root folder.
-6. Run `docker-compose up --build` in the root folder of the repository, and once the server is up, 
+6. Run `docker-compose up` in the root folder of the repository, and once the server is up, 
    go to `http://localhost:((port))/((region))`, replacing ((port)) with the port you used in step 4 and ((region)) with the region name.
-7. Every time you want to reload your changes, stop the previous containers and re-run `docker-compose up --build`
+7. Every time you want to reload your changes, stop the previous containers and re-run `docker-compose up`
 ### Embedding
 * If you are using the default sizing and font configuration, this HTML and CSS is a good starting point to embed the visualizations.
 ```html
