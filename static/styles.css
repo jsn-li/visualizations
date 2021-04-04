@@ -46,7 +46,7 @@ html {
 .legend-wrapper {
     border: 1px #e5e5e5 solid;
     margin: 5px;
-    padding: 15px;
+    padding: 15px 40px;
     white-space: nowrap;
     overflow-x: auto;
 }
@@ -55,15 +55,9 @@ html {
     content: "";
     display: inline-block;
     height: 0;
-    width: 15px;
+    width: 40px;
 }
 
 .inputs-wrapper .bk-btn, .bk-input {
     min-height: 2.2rem !important;
-}
-
-@media (min-width: 520px) {
-    .legend-wrapper {
-        padding: 15px 50px;
-    }
 }
