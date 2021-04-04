@@ -1,4 +1,5 @@
 {{- range $region := .Values.regions }}
+{{- if not $region.fake }}
 {{- $instanceData := dict "dot" $ "regionPath" $region.path -}}
 ---
 apiVersion: v1
@@ -17,4 +18,5 @@ spec:
       protocol: TCP
   selector:
     {{- include "visualizations.selectorLabels" $instanceData | nindent 4 }}
+{{- end }}
 {{ end }}
