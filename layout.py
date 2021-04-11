@@ -136,7 +136,7 @@ class VisualizationLayout:
         self.__read_config__(kwargs)
 
         # Adjust lower bounds!
-        self.lower_bounds.append(self.input_table[self.primary_incidence_key].max())
+        self.lower_bounds.append(self.input_table[self.primary_incidence_key].max() + 1)
 
         # Initialize class members which will store calculation data
         self.ratios = []
