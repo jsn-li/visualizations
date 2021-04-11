@@ -4,7 +4,7 @@ This application integrates with Endcoronavirus.org's Green-zone rankings calcul
 * Visualizations are served at https://nocovid.group/{region}
 ### Usage
 1. In a rankings repository, create a `visualizations` folder with the following file structure. 
-   See the [example](https://github.com/aochen-jli/visualizations/tree/main/examples/) for reference.
+   See the [example](https://github.com/jsn-li/visualizations/tree/main/examples/) for reference.
    ```
    .
    ├── ...
@@ -59,15 +59,15 @@ with underscores.
         file.write(datetime.utcnow().strftime("%m/%d/%Y %H:%M:%S UTC"))
     ```
 3. Create a configuration .yml file for each region in the `visualizations/config` folder
-   * Documentation of all configuration options is available in [visualizations/layout.py](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L55)
+   * Documentation of all configuration options is available in [visualizations/layout.py](https://github.com/jsn-li/visualizations/blob/main/layout.py#L55)
       * Make sure the required configuration options are set!
-   * Default values for non-required options can be seen at the [top of the file](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L15)
-   * For examples, refer to [sample.yml](https://github.com/aochen-jli/visualizations/blob/main/examples/visualizations/config/sample.yml) or 
+   * Default values for non-required options can be seen at the [top of the file](https://github.com/jsn-li/visualizations/blob/main/layout.py#L15)
+   * For examples, refer to [sample.yml](https://github.com/jsn-li/visualizations/blob/main/examples/visualizations/config/sample.yml) or 
      the config files [here](https://github.com/vbrunsch/rankings/tree/main/visualizations/config)
    * The file extension must be .yml, not .yaml
-4. Copy the example [values.yaml](https://github.com/aochen-jli/visualizations/blob/main/examples/visualizations/values.yaml) into 
+4. Copy the example [values.yaml](https://github.com/jsn-li/visualizations/blob/main/examples/visualizations/values.yaml) into 
    your visualizations folder and configure it according to the documentation.
-5. If the deployment pipeline is not yet configured to pull from your repository, you can implement it [here](https://github.com/aochen-jli/visualizations-cicd/tree/main/pipelines) and submit a pull request. Or, you can ask Jason to do it.
+5. If the deployment pipeline is not yet configured to pull from your repository, you can implement it [here](https://github.com/jsn-li/visualizations-cicd/tree/main/pipelines) and submit a pull request. Or, you can ask Jason to do it.
 ---
 **NOTE: Subregions**
 
@@ -80,11 +80,11 @@ be done correctly for a proper URL structure!
 ---
 ### Modifying or translating regions
 * To modify a region's visualization, you just need to modify the region's config file (or the .pkl generation) and changes will automatically be applied
-* To translate a region, use the [title and string configuration options](https://github.com/aochen-jli/visualizations/blob/main/layout.py#L108). 
+* To translate a region, use the [title and string configuration options](https://github.com/jsn-li/visualizations/blob/main/layout.py#L108). 
   Consult the config files [here](https://github.com/vbrunsch/rankings/tree/main/visualizations/config) for reference.
 ### Local Testing
 1. Install [Docker and Docker Compose](https://www.docker.com/products/docker-desktop).
-2. Copy the [example docker-compose.yml and .env files](https://github.com/aochen-jli/visualizations/tree/main/examples/) in the into the directory that contains your `visualizations` folder
+2. Copy the [example docker-compose.yml and .env files](https://github.com/jsn-li/visualizations/tree/main/examples/) in the into the directory that contains your `visualizations` folder
 3. Configure `docker-compose.yml`, replacing all references to `sample` with your region, e.g. `germany`
    * You can copy and paste the `sample-visualization` template to test multiple regions simultaneously
    ```yaml
@@ -128,6 +128,6 @@ be done correctly for a proper URL structure!
 </style>
 ```
 ### Kubernetes Deployment
-* All deployments should be handled by the CI/CD pipeline. To set up pipelines or infrastructure, see [here](https://github.com/aochen-jli/rankings-cicd).
+* All deployments should be handled by the CI/CD pipeline. To set up pipelines or infrastructure, see [here](https://github.com/jsn-li/rankings-cicd).
 ### Example
 ![visualization example](https://raw.githubusercontent.com/aochen-jli/visualizations/main/examples/visualization_img.png)
