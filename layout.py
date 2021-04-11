@@ -8,8 +8,8 @@ from bokeh.models import ColumnDataSource, AutocompleteInput, Button, Text, Hove
 #
 # Constants needed for Jinja templating, should equal the identifiers within templates/index.html
 #
-PLOT_NAME = "plot"
-INPUTS_NAME = "inputs"
+TEMPLATE_PLOT_IDENTIFIER = "plot"
+TEMPLATE_INPUTS_IDENTIFIER = "inputs"
 
 #
 # Default configuration values
@@ -511,7 +511,7 @@ class VisualizationLayout:
     def __generate_plot__(self):
         # Initialize plot
         plot = figure(
-            name=PLOT_NAME,
+            name=TEMPLATE_PLOT_IDENTIFIER,
             aspect_ratio=self.aspect_ratio,
             sizing_mode="scale_both",
             x_range=self.x_range,
@@ -559,7 +559,7 @@ class VisualizationLayout:
         )
         reset_button.on_click(handle_reset)
 
-        return column(reset_button, searchbar, sizing_mode="stretch_width", name=INPUTS_NAME)
+        return column(reset_button, searchbar, sizing_mode="stretch_width", name=TEMPLATE_INPUTS_IDENTIFIER)
 
     def render(self):
         # Set template variables
