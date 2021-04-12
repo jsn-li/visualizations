@@ -448,8 +448,9 @@ class VisualizationLayout:
     # If the inputted y_value is outside of the current y_range, it will adjust such that the new
     # y_value is at the bottom of the graph, then add padding equal to the top padding
     def __attempt_adjust_y_range__(self, y_value):
-        if y_value < self.y_range[0]:
-            self.y_range = (y_value - (self.y_range[1] - 1), self.y_range[1])
+        y_padded = y_value - (self.y_range[1] - 1)
+        if y_padded < self.y_range[0]:
+            self.y_range = (y_padded, self.y_range[1])
 
     def __draw_glyphs__(self, plot):
         # Add lines
